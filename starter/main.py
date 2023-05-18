@@ -58,4 +58,8 @@ async def predict(payload: Predictor):
     print(data)
     X_test, _, _, _ = process_data(data, cat_features, label= None, encoder=encoder, lb=lb, training=False)
     pred=inference(model, X_test)
-    return {"result": pred}
+    if pred[0] == 0:
+        result = '<=50K'
+    else:
+        result = '>50K'
+    return {"result": result}
