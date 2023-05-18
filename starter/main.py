@@ -1,19 +1,61 @@
 # Put the code for your API here.
 from fastapi import FastAPI
 from typing import Union
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+import pandas as pd
+import os
+from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
+from starter.ml.data import process_data
+from starter.ml.model import inference
+from starter.ml.model import compute_model_metrics
+import logging
+import json
+
 # Instantiate the app.
 app = FastAPI()
 
-class Value(BaseModel):
-    value: int
+cat_features = [
+    "workclass",
+    "education",
+    "marital-status",
+    "occupation",
+    "relationship",
+    "race",
+    "sex",
+    "native-country",
+]
+encoder = pd.read_pickle(os.getcwd() + "/model/encoder.pickle")
+model = pd.read_pickle(os.getcwd() + "/model/model.pickle")
+lb = pd.read_pickle(os.getcwd() + "/model/lb.pickle")
+
+class Predictor(BaseModel):
+    age: int
+    workclass: str
+    fnlgt: int
+    education: str
+    education_num: int = Field(alias='education-num')
+    marital_status: str = Field(alias='marital-status')
+    occupation: str
+    relationship: str
+    race: str
+    sex: str
+    capital_gain: int = Field(alias='capital-gain')
+    capital_loss: int = Field(alias='capital-loss')
+    hours_per_week: int = Field(alias='hours-per-week')
+    native_country: str = Field(alias='native-country')
     
 # Define a GET on the specified endpoint.
 @app.get("/")
 async def say_hello():
     return {"greeting": "Hello World!"}
 
-# Use POST action to send data to the server
-@app.post("/{path}")
-async def exercise_function(path: int, query: int, body: Value):
-    return {"path": path, "query": query, "body": body}
+@app.post("/predict")
+async def predict(payload: Predictor):
+    data = pd.DataFrame(payload.__dict__, index=[0])
+    data.columns = ['age', 'workclass', 'fnlgt', 'education', 'education-num',
+       'marital-status', 'occupation', 'relationship', 'race', 'sex',
+       'capital-gain', 'capital-loss', 'hours-per-week', 'native-country']
+    print(data)
+    X_test, _, _, _ = process_data(data, cat_features, label= None, encoder=encoder, lb=lb, training=False)
+    pred=inference(model, X_test)
+    return {"result": pred}
