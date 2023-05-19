@@ -1,10 +1,8 @@
 import pandas as pd
 import os
-from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 from starter.ml.data import process_data
 from starter.ml.model import inference
 from starter.ml.model import compute_model_metrics
-import logging
 
 test_path = os.getcwd() + '/data/census_test.csv'
 test = pd.read_csv(test_path)

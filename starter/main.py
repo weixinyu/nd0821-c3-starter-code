@@ -1,15 +1,10 @@
 # Put the code for your API here.
 from fastapi import FastAPI
-from typing import Union
 from pydantic import BaseModel, Field
 import pandas as pd
 import os
-from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 from starter.ml.data import process_data
 from starter.ml.model import inference
-from starter.ml.model import compute_model_metrics
-import logging
-import json
 
 # Instantiate the app.
 app = FastAPI()
@@ -28,6 +23,7 @@ encoder = pd.read_pickle(os.getcwd() + "/starter/model/encoder.pickle")
 model = pd.read_pickle(os.getcwd() + "/starter/model/model.pickle")
 lb = pd.read_pickle(os.getcwd() + "/starter/model/lb.pickle")
 
+
 class Predictor(BaseModel):
     age: int
     workclass: str
@@ -43,7 +39,8 @@ class Predictor(BaseModel):
     capital_loss: int = Field(alias='capital-loss')
     hours_per_week: int = Field(alias='hours-per-week')
     native_country: str = Field(alias='native-country')
-    
+
+
 # Define a GET on the specified endpoint.
 @app.get("/")
 async def say_hello():
