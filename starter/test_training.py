@@ -8,7 +8,7 @@ from sklearn.model_selection import train_test_split
 @pytest.fixture
 def raw_data():
     """ Simple function to import raw data."""
-    data = pd.read_csv(os.getcwd() + '/data/census_clean.csv')
+    data = pd.read_csv(os.getcwd() + '/starter/data/census_clean.csv')
     return data
 
 @pytest.fixture

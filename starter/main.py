@@ -24,9 +24,9 @@ cat_features = [
     "sex",
     "native-country",
 ]
-encoder = pd.read_pickle(os.getcwd() + "/model/encoder.pickle")
-model = pd.read_pickle(os.getcwd() + "/model/model.pickle")
-lb = pd.read_pickle(os.getcwd() + "/model/lb.pickle")
+encoder = pd.read_pickle(os.getcwd() + "/starter/model/encoder.pickle")
+model = pd.read_pickle(os.getcwd() + "/starter/model/model.pickle")
+lb = pd.read_pickle(os.getcwd() + "/starter/model/lb.pickle")
 
 class Predictor(BaseModel):
     age: int
