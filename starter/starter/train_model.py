@@ -3,8 +3,8 @@ import pandas as pd
 import os
 import pickle
 from sklearn.model_selection import train_test_split
-
-
+from ml.model import inference
+from ml.model import compute_model_metrics
 from ml.data import process_data
 from ml.model import train_model
 
@@ -44,6 +44,12 @@ X_test, y_test, encoder, lb = process_data(
 
 # Train and save a model.
 model = train_model(X_train, y_train)
+
+X_test, y_test, _, _ = process_data(test, cat_features, label= "salary", encoder=encoder, lb=lb, training=False)
+y_preds=inference(model, X_test)
+prc, rcl, fb = compute_model_metrics(y_test, y_preds)
+log = "Precision: %s Recall: %s FBeta: %s" % (prc, rcl, fb)
+print(log)
 
 print(model.__class__.__name__)
 with open('model/model.pickle', 'wb') as fm:
