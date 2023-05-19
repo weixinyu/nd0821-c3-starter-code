@@ -20,8 +20,8 @@ def test_predict_1():
     assert r.json()["result"] == '<=50K'
     
 def test_predict_2():
-    data = '{"age": 47, "workclass": "Self-emp-not-inc", "fnlgt": 192755, "education": "HS-grad", "education-num": 9, "marital-status": "Married-civ-spouse", "occupation": "Machine-op-inspct", "relationship": "Wife", "race": "White", "sex": "Female", "capital-gain": 0, "capital-loss": 0, "hours-per-week": 20, "native-country": "United-States"}'
+    data = '{"age": 58, "workclass": "Federal-gov", "fnlgt": 72998, "education": "11th", "education-num": 7, "marital-status": "Divorced", "occupation": "Craft-repair", "relationship": "Not-in-family", "race": "Black", "sex": "Female", "capital-gain": 14084, "capital-loss": 0, "hours-per-week": 40, "native-country": "United-States"}'
     r = client.post("/predict", data=data)
     assert r.status_code == 200
     print(r.json())
-    #assert r.json()["result"] == '<=50K'
+    assert r.json()["result"] == '>50K'

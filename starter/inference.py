@@ -25,6 +25,8 @@ lb = pd.read_pickle(os.getcwd() + "/model/lb.pickle")
 
 X_test, y_test, _, _ = process_data(test, cat_features, label= "salary", encoder=encoder, lb=lb, training=False)
 y_preds=inference(model, X_test)
+print(y_preds)
+print(y_test)
 prc, rcl, fb = compute_model_metrics(y_test, y_preds)
 log = "Precision: %s Recall: %s FBeta: %s" % (prc, rcl, fb)
 print(log)
