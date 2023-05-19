@@ -18,3 +18,7 @@ Precision: 0.7111111111111111 Recall: 0.6166112956810631 FBeta: 0.66049822064056
 
 ## Ethical Considerations
 We treat the attributes in the dataset as the only factors affecting the income, and it is not true in the real case.
+
+## Caveats and Recommendations
+This project is to get familiar with the CI/CD process of machine learning, so the performance of the model is not the target of it. You can do model selection and hyperparameter tuning to enhance the performance.
+This is a project of Udacity Program and cannot be used for commercial purpose.
