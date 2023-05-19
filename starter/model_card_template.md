@@ -1,6 +1,6 @@
 # Model Card
 
-For additional information see the Model Card paper: https://arxiv.org/pdf/1810.03993.pdf
+For additional information see the github: https://github.com/weixinyu/nd0821-c3-starter-code/
 
 ## Model Details
 Wei Xinyu created the model. It is random forest classication using the default pareameters in 0.24.1
